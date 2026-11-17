@@ -173,7 +173,6 @@ body {
 }
 
 @keyframes candleMove {
-
     0% {
         transform: translateY(35px);
         opacity: .35;
@@ -183,7 +182,6 @@ body {
         transform: translateY(-55px);
         opacity: 1;
     }
-
 }
 
 /* MAIN CONTAINER */
@@ -276,12 +274,10 @@ body {
 }
 
 @keyframes pulse {
-
     50% {
         box-shadow:
             0 0 40px rgba(212,175,55,.7);
     }
-
 }
 
 /* VERIFIED */
@@ -434,6 +430,8 @@ h1 span {
     transition: .3s;
 
     animation: buttonGlow 2s infinite alternate;
+
+    cursor: pointer;
 }
 
 .join-button:hover {
@@ -448,12 +446,10 @@ h1 span {
 }
 
 @keyframes buttonGlow {
-
     to {
         box-shadow:
             0 0 30px rgba(212,175,55,.45);
     }
-
 }
 
 /* BOTTOM TEXT */
@@ -486,10 +482,9 @@ footer {
     padding-bottom: 5px;
 }
 
-/* APPEAR ANIMATION */
+/* ANIMATION */
 
 @keyframes appear {
-
     from {
         opacity: 0;
         transform: translateY(35px) scale(.96);
@@ -499,10 +494,9 @@ footer {
         opacity: 1;
         transform: translateY(0) scale(1);
     }
-
 }
 
-/* MOBILE RESPONSIVE */
+/* MOBILE */
 
 @media(max-width:480px) {
 
@@ -542,13 +536,11 @@ footer {
         font-size: 9px;
         letter-spacing: 3px;
     }
-
 }
 
 /* REDUCED MOTION */
 
 @media(prefers-reduced-motion: reduce) {
-
     *,
     *::before,
     *::after {
@@ -556,7 +548,6 @@ footer {
         animation-iteration-count: 1 !important;
         transition-duration: .01ms !important;
     }
-
 }
 
 </style>
@@ -574,49 +565,38 @@ footer {
 
 <div class="candles" id="candles"></div>
 
-<!-- MAIN LANDING PAGE -->
+<!-- LANDING PAGE -->
 
 <main class="container">
 
     <div class="card">
 
         <div class="top-label">
-
             <i class="fa-solid fa-crown"></i>
-
             WELCOME TO OFFICIAL CHANNEL
-
         </div>
 
         <!-- PROFILE PHOTO -->
 
         <div class="profile-wrapper">
-
             <img
                 src="https://cdn5.telesco.pe/file/ZwoJwgOTmwahzQLOgOXrUkh5otA_uLof_ys9IbmOg2sbCGjDrpFzs0kr1xtqETpjqCxJlc3JtTuZNgfZTFOjhtWdYJaY70yzle8FDxitQm2UBUBC-eFlRzENiURoslijyDLWMDZDo78xLGsan_xb-BPv9FqHK5Dqpuy_MIG5-l57M0b3rJBCrbsxQMFBxVDzhxzLdPj9BnH4GSUTHIQRNfIghyZidZwoPcaueqM3AH6-RjBuLmAekrSRD0I0cL6xAMEPN2kAMSUMUM1IYlsqSnenzxbXxJ4pPA1sk15AVjuMjLPTffRwYXhljAqGD3oOY8SvHzQdiP6aGEHk5xSQ2A.jpg"
                 alt="Pankaj Bhardwaj Profile"
             >
-
         </div>
 
         <!-- OFFICIAL LABEL -->
 
         <div class="verified">
-
             <i class="fa-solid fa-circle-check"></i>
-
             OFFICIAL CHANNEL
-
         </div>
 
         <!-- NAME -->
 
         <h1>
-
             PANKAJ BHARDWAJ
-
             <span>OFFICIAL</span>
-
         </h1>
 
         <div class="line"></div>
@@ -624,12 +604,9 @@ footer {
         <!-- DESCRIPTION -->
 
         <p class="description">
-
             Welcome to the official Telegram channel.
-
             Stay connected and get the latest updates
             directly from our channel.
-
         </p>
 
         <!-- DETAILS -->
@@ -637,56 +614,42 @@ footer {
         <div class="details">
 
             <div class="detail-box">
-
                 <i class="fa-brands fa-telegram"></i>
-
                 TELEGRAM
-
             </div>
 
             <div class="detail-box">
-
                 <i class="fa-solid fa-shield-halved"></i>
-
                 OFFICIAL
-
             </div>
 
         </div>
 
-        <!-- TELEGRAM JOIN BUTTON -->
+        <!-- JOIN BUTTON -->
 
         <a
             href="https://telegram.me/+1_DajKGuQMplYTE1"
             class="join-button"
+            id="joinButton"
             target="_blank"
             rel="noopener noreferrer"
         >
-
             <i class="fa-brands fa-telegram"></i>
-
             JOIN TELEGRAM NOW
-
             <i class="fa-solid fa-arrow-right"></i>
-
         </a>
 
-        <!-- BOTTOM TEXT -->
+        <!-- BOTTOM -->
 
         <div class="bottom-text">
-
             <i class="fa-solid fa-lock"></i>
-
             CONNECT WITH OUR OFFICIAL CHANNEL
-
         </div>
 
     </div>
 
     <footer>
-
         © 2026 PANKAJ BHARDWAJ OFFICIAL
-
     </footer>
 
 </main>
@@ -767,6 +730,39 @@ for (let i = 0; i < candleCount; i++) {
     candleContainer.appendChild(candle);
 
 }
+
+/* CLICK PROTECTION */
+
+const joinButton =
+    document.getElementById("joinButton");
+
+joinButton.addEventListener("click", function(event) {
+
+    // Block JavaScript-generated synthetic clicks
+
+    if (!event.isTrusted) {
+        event.preventDefault();
+        return;
+    }
+
+    // Validate Telegram URL
+
+    const telegramURL = this.getAttribute("href");
+
+    if (
+        !telegramURL ||
+        !telegramURL.startsWith("https://telegram.me/") ||
+        telegramURL.includes("YOUR_CHANNEL")
+    ) {
+        event.preventDefault();
+        console.warn("Invalid Telegram link");
+        return;
+    }
+
+    // Genuine browser click:
+    // Allow normal Telegram navigation.
+
+});
 
 </script>
 
